@@ -28,11 +28,11 @@ public class CategoryResource {
     }
 
     @PostMapping
-    public ResponseEntity<Void> insert(@Valid @RequestBody CategoryDTO objDto){
-        Category obj = service.fromDTO(objDto);
-        obj = service.insert(obj);
+    public ResponseEntity<CategoryDTO> insert(@Valid @RequestBody CategoryDTO dto){
+        //Category obj = service.fromDTO(objDto);
+        dto = service.insert(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}").buildAndExpand(obj.getId()).toUri();
+                .path("/{id}").buildAndExpand(dto.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
 
@@ -41,7 +41,7 @@ public class CategoryResource {
                                        @PathVariable Long id){
         Category obj = service.fromDTO(objDto);
         obj.setId(id);
-        //bj = service.update(obj);
+        //obj = service.update(obj);
         return ResponseEntity.noContent().build();
     }
 
