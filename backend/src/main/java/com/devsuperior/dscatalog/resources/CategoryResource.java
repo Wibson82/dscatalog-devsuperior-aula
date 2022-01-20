@@ -53,10 +53,8 @@ public class CategoryResource {
 
     @GetMapping
     public ResponseEntity<List<CategoryDTO>> findAll(){
-        List<Category> list = service.findAll();
-        List<CategoryDTO> listDto = list.stream().map(obj ->
-                new CategoryDTO(obj)).collect(Collectors.toList());
-        return ResponseEntity.ok().body(listDto);
+        List<CategoryDTO> list = service.findAll();
+        return ResponseEntity.ok().body(list);
     }
 
     @GetMapping(value = "/page")

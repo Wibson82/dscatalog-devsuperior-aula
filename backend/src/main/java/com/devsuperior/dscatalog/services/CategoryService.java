@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CategoryService {
@@ -60,8 +61,10 @@ public class CategoryService {
     }
 
     @Transactional(readOnly = true)
-    public List<Category> findAll() {
-        return repository.findAll();
+    public List<CategoryDTO> findAll() {
+        List<Category> list = repository.findAll();
+        return  list.stream().map(x -> new CategoryDTO(x))
+                .collect(Collectors.toList());
     }
 
     public Page<Category> findPage(Integer page, Integer linesPerPage, String orderBy, String direction){
