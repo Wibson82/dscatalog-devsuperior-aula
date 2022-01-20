@@ -2,7 +2,7 @@ package com.devsuperior.dscatalog.resources;
 
 import com.devsuperior.dscatalog.entities.Category;
 import com.devsuperior.dscatalog.dto.CategoryDTO;
-import com.devsuperior.dscatalog.service.CategoriaService;
+import com.devsuperior.dscatalog.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -19,10 +19,10 @@ import java.util.stream.Collectors;
 public class CategoryResource {
 
     @Autowired
-    private CategoriaService service;
+    private CategoryService service;
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Category> listar(@PathVariable Integer id){
+    public ResponseEntity<Category> listar(@PathVariable Long id){
         Category obj = service.find(id);
         return ResponseEntity.ok().body(obj);
     }
@@ -38,7 +38,7 @@ public class CategoryResource {
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<Void> update(@Valid @RequestBody CategoryDTO objDto,
-                                       @PathVariable Integer id){
+                                       @PathVariable Long id){
         Category obj = service.fromDTO(objDto);
         obj.setId(id);
         obj = service.update(obj);
@@ -46,7 +46,7 @@ public class CategoryResource {
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id){
+    public ResponseEntity<Void> delete(@PathVariable Long id){
         service.delete(id);
         return ResponseEntity.noContent().build();
     }

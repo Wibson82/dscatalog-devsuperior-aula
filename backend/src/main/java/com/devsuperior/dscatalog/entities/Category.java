@@ -8,13 +8,14 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
+@Table(name = "tb_category")
 public class Category implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     private String nome;
 
     @ManyToMany(mappedBy = "categorias")
@@ -23,7 +24,7 @@ public class Category implements Serializable {
     public Category() {
     }
 
-    public Category(Integer id, String nome) {
+    public Category(Long id, String nome) {
         this.id = id;
         this.nome = nome;
     }
@@ -36,11 +37,11 @@ public class Category implements Serializable {
         this.produtos = produtos;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

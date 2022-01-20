@@ -1,33 +1,34 @@
-package com.devsuperior.dscatalog.service;
+package com.devsuperior.dscatalog.services;
 
 import com.devsuperior.dscatalog.entities.Category;
 import com.devsuperior.dscatalog.dto.CategoryDTO;
 import com.devsuperior.dscatalog.repositories.CategoryRepository;
 import com.devsuperior.dscatalog.resources.exceptions.DataIntegrityException;
-import com.devsuperior.dscatalog.service.exceptions.ObjetcNotFoundException;
+import com.devsuperior.dscatalog.services.exceptions.ObjetcNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CategoriaService {
+public class CategoryService {
 
     @Autowired
     CategoryRepository repository;
 
-    public Category buscar(Integer id){
+    public Category buscar(Long id){
         Optional<Category> obj = repository.findById(id);
         return obj.orElse(null);
     }
 
-    public Category find(@PathVariable Integer id){
+    public Category find(@PathVariable Long id){
         Optional<Category> obj = repository.findById(id);
         return obj.orElseThrow(() -> new ObjetcNotFoundException(
                 "Objeto não encontrado! Id: " + id + ", Tipo: " + Category.class.getName()));
@@ -48,7 +49,7 @@ public class CategoriaService {
         newObj.setNome(obj.getNome());
     }
 
-    public void delete(Integer id) {
+    public void delete(Long id) {
         //find(id);
         try{
             repository.deleteById(id);
@@ -58,6 +59,7 @@ public class CategoriaService {
         }
     }
 
+    @Transactional(readOnly = true)
     public List<Category> findAll() {
         return repository.findAll();
     }

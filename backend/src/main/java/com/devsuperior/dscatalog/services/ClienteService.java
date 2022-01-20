@@ -1,10 +1,10 @@
-package com.devsuperior.dscatalog.service;
+package com.devsuperior.dscatalog.services;
 
 import com.devsuperior.dscatalog.entities.Cliente;
 import com.devsuperior.dscatalog.dto.ClienteDTO;
 import com.devsuperior.dscatalog.repositories.ClienteRepository;
 import com.devsuperior.dscatalog.resources.exceptions.DataIntegrityException;
-import com.devsuperior.dscatalog.service.exceptions.ObjetcNotFoundException;
+import com.devsuperior.dscatalog.services.exceptions.ObjetcNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;

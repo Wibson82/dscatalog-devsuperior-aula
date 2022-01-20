@@ -2,7 +2,7 @@ package com.devsuperior.dscatalog.resources;
 
 import com.devsuperior.dscatalog.entities.Cliente;
 import com.devsuperior.dscatalog.dto.ClienteDTO;
-import com.devsuperior.dscatalog.service.ClienteService;
+import com.devsuperior.dscatalog.services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
