@@ -4,7 +4,7 @@ import com.devsuperior.dscatalog.entities.Category;
 import com.devsuperior.dscatalog.dto.CategoryDTO;
 import com.devsuperior.dscatalog.repositories.CategoryRepository;
 import com.devsuperior.dscatalog.resources.exceptions.DataIntegrityException;
-import com.devsuperior.dscatalog.services.exceptions.EntityNotFoundException;
+import com.devsuperior.dscatalog.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -32,12 +32,12 @@ public class CategoryService {
     @Transactional(readOnly = true)
     public CategoryDTO findById(@PathVariable Long id){
         Optional<Category> obj = repository.findById(id);
-        Category entity = obj.orElseThrow(() -> new EntityNotFoundException(
+        Category entity = obj.orElseThrow(() -> new ResourceNotFoundException(
                 "Entidade não encontrada! Id: " + id + ", Tipo: " + Category.class.getName()));
         return new CategoryDTO(entity);
     }
 
-    @Transactional(readOnly = true)
+    @Transactional()
     public CategoryDTO insert(CategoryDTO dto){
         Category entity = new Category();
         entity.setNome(dto.getNome());
@@ -45,11 +45,17 @@ public class CategoryService {
         return new CategoryDTO(entity);
     }
 
-   /* public Category update(Category obj) {
-        Category newObj = find(obj.getId());
-        updateData(newObj, obj);
-        return repository.save(obj);
-    }*/
+    @Transactional()
+    public CategoryDTO update(Long id, CategoryDTO dto) {
+        try{
+            Category entity = repository.getOne(id);
+            entity.setNome(dto.getNome());
+            entity = repository.save(entity);
+            return new CategoryDTO(entity);
+        } catch (javax.persistence.EntityNotFoundException e){
+            throw new ResourceNotFoundException("Id not found " + id);
+        }
+    }
 
     private void updateData(Category newObj, Category obj) {
         newObj.setNome(obj.getNome());
