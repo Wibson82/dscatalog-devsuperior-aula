@@ -4,7 +4,7 @@ import com.devsuperior.dscatalog.entities.Category;
 import com.devsuperior.dscatalog.dto.CategoryDTO;
 import com.devsuperior.dscatalog.repositories.CategoryRepository;
 import com.devsuperior.dscatalog.resources.exceptions.DataIntegrityException;
-import com.devsuperior.dscatalog.services.exceptions.ObjetcNotFoundException;
+import com.devsuperior.dscatalog.services.exceptions.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -29,10 +29,12 @@ public class CategoryService {
         return obj.orElse(null);
     }
 
-    public Category find(@PathVariable Long id){
+    @Transactional(readOnly = true)
+    public CategoryDTO findById(@PathVariable Long id){
         Optional<Category> obj = repository.findById(id);
-        return obj.orElseThrow(() -> new ObjetcNotFoundException(
-                "Objeto não encontrado! Id: " + id + ", Tipo: " + Category.class.getName()));
+        Category entity = obj.orElseThrow(() -> new EntityNotFoundException(
+                "Entidade não encontrada! Id: " + id + ", Tipo: " + Category.class.getName()));
+        return new CategoryDTO(entity);
     }
 
     public Category insert(Category obj) {
@@ -40,11 +42,11 @@ public class CategoryService {
         return repository.save(obj);
     }
 
-    public Category update(Category obj) {
+   /* public Category update(Category obj) {
         Category newObj = find(obj.getId());
         updateData(newObj, obj);
         return repository.save(obj);
-    }
+    }*/
 
     private void updateData(Category newObj, Category obj) {
         newObj.setNome(obj.getNome());

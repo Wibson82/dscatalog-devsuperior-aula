@@ -22,9 +22,9 @@ public class CategoryResource {
     private CategoryService service;
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Category> listar(@PathVariable Long id){
-        Category obj = service.find(id);
-        return ResponseEntity.ok().body(obj);
+    public ResponseEntity<CategoryDTO> findById(@PathVariable Long id){
+        CategoryDTO dto = service.findById(id);
+        return ResponseEntity.ok().body(dto);
     }
 
     @PostMapping
@@ -41,7 +41,7 @@ public class CategoryResource {
                                        @PathVariable Long id){
         Category obj = service.fromDTO(objDto);
         obj.setId(id);
-        obj = service.update(obj);
+        //bj = service.update(obj);
         return ResponseEntity.noContent().build();
     }
 
