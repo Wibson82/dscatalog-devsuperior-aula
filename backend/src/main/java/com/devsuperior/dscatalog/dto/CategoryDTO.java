@@ -3,12 +3,10 @@ package com.devsuperior.dscatalog.dto;
 import com.devsuperior.dscatalog.entities.Category;
 import org.hibernate.validator.constraints.Length;
 
-import java.io.Serial;
 import java.io.Serializable;
 import javax.validation.constraints.NotEmpty;
 
 public class CategoryDTO implements Serializable {
-    @Serial
     private static final long serialVersionUID = 1L;
 
     private Long id;

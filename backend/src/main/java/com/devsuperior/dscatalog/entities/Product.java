@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.io.Serial;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.*;
@@ -12,7 +11,6 @@ import java.util.*;
 @Entity
 @Table(name = "tb_product")
 public class Product implements Serializable {
-    @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -24,7 +22,6 @@ public class Product implements Serializable {
     private Double price;
     @Column(name = "img_url")
     private String imgUrl;
-    @JsonFormat(pattern = "yyyy-MM-ddTHH:mm:ssZ", timezone = "UTC")
     private Instant date;
 
     @JsonIgnore
@@ -101,14 +98,6 @@ public class Product implements Serializable {
     public Set<Category> getCategories() {
         return categories;
     }
-/*
-    public Set<ItemPedido> getItens() {
-        return itens;
-    }
-
-    public void setItens(Set<ItemPedido> itens) {
-        this.itens = itens;
-    }*/
 
     @Override
     public boolean equals(Object o) {
