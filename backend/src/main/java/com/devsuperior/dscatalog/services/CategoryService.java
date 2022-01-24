@@ -2,11 +2,12 @@ package com.devsuperior.dscatalog.services;
 
 import com.devsuperior.dscatalog.entities.Category;
 import com.devsuperior.dscatalog.dto.CategoryDTO;
-import com.devsuperior.dscatalog.repositories.CategoryRepository;
-import com.devsuperior.dscatalog.resources.exceptions.DataIntegrityException;
+import com.devsuperior.dscatalog.services.repositories.CategoryRepository;
+import com.devsuperior.dscatalog.services.exceptions.DataBaseException;
 import com.devsuperior.dscatalog.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
@@ -24,13 +25,13 @@ public class CategoryService {
     @Autowired
     CategoryRepository repository;
 
-    public Category buscar(Long id){
+    public Category buscar(Long id) {
         Optional<Category> obj = repository.findById(id);
         return obj.orElse(null);
     }
 
     @Transactional(readOnly = true)
-    public CategoryDTO findById(@PathVariable Long id){
+    public CategoryDTO findById(@PathVariable Long id) {
         Optional<Category> obj = repository.findById(id);
         Category entity = obj.orElseThrow(() -> new ResourceNotFoundException(
                 "Entidade não encontrada! Id: " + id + ", Tipo: " + Category.class.getName()));
@@ -38,35 +39,38 @@ public class CategoryService {
     }
 
     @Transactional()
-    public CategoryDTO insert(CategoryDTO dto){
+    public CategoryDTO insert(CategoryDTO dto) {
         Category entity = new Category();
-        entity.setNome(dto.getNome());
-        entity =  repository.save(entity);
+        entity.setName(dto.getName());
+        entity = repository.save(entity);
         return new CategoryDTO(entity);
     }
 
     @Transactional()
     public CategoryDTO update(Long id, CategoryDTO dto) {
-        try{
-            Category entity = repository.getOne(id);
-            entity.setNome(dto.getNome());
+        try {
+            Category entity = repository.getById(id);
+            entity.setName(dto.getName());
             entity = repository.save(entity);
             return new CategoryDTO(entity);
-        } catch (javax.persistence.EntityNotFoundException e){
+        } catch (javax.persistence.EntityNotFoundException e) {
             throw new ResourceNotFoundException("Id not found " + id);
         }
     }
 
     private void updateData(Category newObj, Category obj) {
-        newObj.setNome(obj.getNome());
+        newObj.setName(obj.getName());
     }
 
     public void delete(Long id) {
         //find(id);
-        try{
+        try {
             repository.deleteById(id);
-        } catch (DataIntegrityViolationException e){
-            throw  new DataIntegrityException(
+        } catch (EmptyResultDataAccessException e) {
+            throw new ResourceNotFoundException(
+                    "Categoria não encontrada para o id " + id);
+        } catch (DataIntegrityViolationException e) {
+            throw new DataBaseException(
                     "Não é possível excluir uma categoria que possui produtos");
         }
     }
@@ -74,16 +78,21 @@ public class CategoryService {
     @Transactional(readOnly = true)
     public List<CategoryDTO> findAll() {
         List<Category> list = repository.findAll();
-        return  list.stream().map(x -> new CategoryDTO(x))
+        return list.stream().map(x -> new CategoryDTO(x))
                 .collect(Collectors.toList());
     }
 
-    public Page<Category> findPage(Integer page, Integer linesPerPage, String orderBy, String direction){
-        PageRequest pageRequest =  PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+    public Page<Category> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
+        PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
         return repository.findAll(pageRequest);
     }
 
-    public Category fromDTO(CategoryDTO objDto){
-        return new Category(objDto.getId(), objDto.getNome());
+    public Category fromDTO(CategoryDTO objDto) {
+        return new Category(objDto.getId(), objDto.getName());
+    }
+
+    public Page<CategoryDTO> findAllPaged(PageRequest pageRequest) {
+        Page<Category> list = repository.findAll(pageRequest);
+        return  list.map(x -> new CategoryDTO(x));
     }
 }

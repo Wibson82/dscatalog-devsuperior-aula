@@ -1,7 +1,7 @@
 package com.devsuperior.dscatalog.services;
 
 import com.devsuperior.dscatalog.entities.Pedido;
-import com.devsuperior.dscatalog.repositories.PedidoRepository;
+import com.devsuperior.dscatalog.services.repositories.PedidoRepository;
 import com.devsuperior.dscatalog.services.exceptions.ObjetcNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

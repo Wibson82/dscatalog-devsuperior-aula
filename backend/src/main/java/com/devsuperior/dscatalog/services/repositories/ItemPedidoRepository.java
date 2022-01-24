@@ -1,4 +1,4 @@
-package com.devsuperior.dscatalog.repositories;
+package com.devsuperior.dscatalog.services.repositories;
 
 import com.devsuperior.dscatalog.entities.ItemPedido;
 import org.springframework.data.jpa.repository.JpaRepository;

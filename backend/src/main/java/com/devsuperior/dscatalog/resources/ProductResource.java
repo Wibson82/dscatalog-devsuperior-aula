@@ -1,8 +1,8 @@
 package com.devsuperior.dscatalog.resources;
 
-import com.devsuperior.dscatalog.entities.Category;
-import com.devsuperior.dscatalog.dto.CategoryDTO;
-import com.devsuperior.dscatalog.services.CategoryService;
+import com.devsuperior.dscatalog.dto.ProductDTO;
+import com.devsuperior.dscatalog.entities.Product;
+import com.devsuperior.dscatalog.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,23 +14,22 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping(value = "/categorias")
-public class CategoryResource {
+@RequestMapping(value = "/produtos")
+public class ProductResource {
 
     @Autowired
-    private CategoryService service;
+    private ProductService service;
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<CategoryDTO> findById(@PathVariable Long id){
-        CategoryDTO dto = service.findById(id);
+    public ResponseEntity<ProductDTO> findById(@PathVariable Long id){
+        ProductDTO dto = service.findById(id);
         return ResponseEntity.ok().body(dto);
     }
 
     @PostMapping
-    public ResponseEntity<CategoryDTO> insert(@Valid @RequestBody CategoryDTO dto){
+    public ResponseEntity<ProductDTO> insert(@Valid @RequestBody ProductDTO dto){
         //Category obj = service.fromDTO(objDto);
         dto = service.insert(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -39,7 +38,7 @@ public class CategoryResource {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<CategoryDTO> update(@Valid @RequestBody CategoryDTO dto,
+    public ResponseEntity<ProductDTO> update(@Valid @RequestBody ProductDTO dto,
                                        @PathVariable Long id){
         dto = service.update(id, dto);
         return ResponseEntity.ok().build();
@@ -51,8 +50,14 @@ public class CategoryResource {
         return ResponseEntity.noContent().build();
     }
 
+   /* @GetMapping
+    public ResponseEntity<List<ProductDTO>> findAll(){
+        List<ProductDTO> list = service.findAll();
+        return ResponseEntity.ok().body(list);
+    }*/
+
     @GetMapping
-    public ResponseEntity<Page<CategoryDTO>> findAll(
+    public ResponseEntity<Page<ProductDTO>> findAll(
             @RequestParam(value = "page", defaultValue = "0") Integer page,
             @RequestParam(value = "linesPerPage", defaultValue = "4") Integer linesPerPage,
             @RequestParam(value = "direction", defaultValue = "ASC") String direction,
@@ -61,18 +66,18 @@ public class CategoryResource {
         PageRequest pageRequest = PageRequest
                 .of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
 
-        Page<CategoryDTO> list = service.findAllPaged(pageRequest);
+        Page<ProductDTO> list = service.findAllPaged(pageRequest);
         return ResponseEntity.ok().body(list);
     }
 
     @GetMapping(value = "/page")
-    public ResponseEntity<Page<CategoryDTO>> findPage(
+    public ResponseEntity<Page<ProductDTO>> findPage(
             @RequestParam(value = "page", defaultValue = "0") Integer page,
             @RequestParam(value = "linesPerPage", defaultValue = "4") Integer linesPerPage,
             @RequestParam(value = "orderBy", defaultValue = "nome") String orderBy,
             @RequestParam(value = "direction", defaultValue = "ASC") String direction){
-        Page<Category> list = service.findPage(page, linesPerPage, orderBy, direction);
-        Page<CategoryDTO> listDto = list.map(obj -> new CategoryDTO(obj));
+        Page<Product> list = service.findPage(page, linesPerPage, orderBy, direction);
+        Page<ProductDTO> listDto = list.map(obj -> new ProductDTO(obj));
         return ResponseEntity.ok().body(listDto);
     }
 }

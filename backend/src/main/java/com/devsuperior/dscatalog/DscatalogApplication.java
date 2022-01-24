@@ -1,17 +1,10 @@
 package com.devsuperior.dscatalog;
 
-import com.devsuperior.dscatalog.entities.*;
-import com.devsuperior.dscatalog.entities.enuns.EstadoPagamento;
-import com.devsuperior.dscatalog.entities.enuns.TipoCliente;
-import com.devsuperior.dscatalog.repositories.*;
+import com.devsuperior.dscatalog.services.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.List;
 
 @SpringBootApplication
 public class DscatalogApplication implements CommandLineRunner {
@@ -19,7 +12,7 @@ public class DscatalogApplication implements CommandLineRunner {
 	@Autowired
 	private CategoryRepository categoriaRepository;
 	@Autowired
-	private ProduroRepository produroRepository;
+	private ProductRepository productRepository;
 	@Autowired
 	private EstadoRepository estadoRepository;
 	@Autowired
@@ -41,7 +34,7 @@ public class DscatalogApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		Category cat1 = new Category(null, "Informática");
+		/*Category cat1 = new Category(null, "Informática");
 		Category cat2 = new Category(null, "Escritório");
 		Category cat3 = new Category(null, "Cama mesa e banho");
 		Category cat4 = new Category(null, "Eletrônicos");
@@ -49,9 +42,9 @@ public class DscatalogApplication implements CommandLineRunner {
 		Category cat6 = new Category(null, "Decoração");
 		Category cat7 = new Category(null, "Perfumaria");
 
-		Produto p1 = new Produto(null, "Computador", 2000.00);
-		Produto p2 = new Produto(null, "Impressora", 400.00);
-		Produto p3 = new Produto(null, "Mouse", 80.00);
+		Product p1 = new Product(null, "Computador", 2000.00);
+		Product p2 = new Product(null, "Impressora", 400.00);
+		Product p3 = new Product(null, "Mouse", 80.00);
 
 		cat1.getProdutos().addAll(Arrays.asList(p1, p2, p3));
 		cat2.getProdutos().addAll(Arrays.asList(p2));
@@ -113,7 +106,7 @@ public class DscatalogApplication implements CommandLineRunner {
 		p2.getItens().addAll(List.of(ip3));
 		p3.getItens().addAll(List.of(ip2));
 
-		itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2, ip3));
+		itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2, ip3));*/
 	}
 
 }

@@ -2,7 +2,7 @@ package com.devsuperior.dscatalog.services;
 
 import com.devsuperior.dscatalog.entities.Cliente;
 import com.devsuperior.dscatalog.dto.ClienteDTO;
-import com.devsuperior.dscatalog.repositories.ClienteRepository;
+import com.devsuperior.dscatalog.services.repositories.ClienteRepository;
 import com.devsuperior.dscatalog.resources.exceptions.DataIntegrityException;
 import com.devsuperior.dscatalog.services.exceptions.ObjetcNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
