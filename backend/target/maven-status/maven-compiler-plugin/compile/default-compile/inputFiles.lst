@@ -7,6 +7,7 @@ F:\Cursos\DevSuperior\dscatalog\backend\src\main\java\com\devsuperior\dscatalog\
 F:\Cursos\DevSuperior\dscatalog\backend\src\main\java\com\devsuperior\dscatalog\resources\exceptions\DataIntegrityException.java
 F:\Cursos\DevSuperior\dscatalog\backend\src\main\java\com\devsuperior\dscatalog\services\repositories\ProductRepository.java
 F:\Cursos\DevSuperior\dscatalog\backend\src\main\java\com\devsuperior\dscatalog\services\repositories\CategoryRepository.java
+F:\Cursos\DevSuperior\dscatalog\backend\src\main\java\com\devsuperior\dscatalog\services\repositories\ClientRepository.java
 F:\Cursos\DevSuperior\dscatalog\backend\src\main\java\com\devsuperior\dscatalog\dto\CategoryDTO.java
 F:\Cursos\DevSuperior\dscatalog\backend\src\main\java\com\devsuperior\dscatalog\resources\exceptions\StandardError.java
 F:\Cursos\DevSuperior\dscatalog\backend\src\main\java\com\devsuperior\dscatalog\entities\Category.java
@@ -14,6 +15,10 @@ F:\Cursos\DevSuperior\dscatalog\backend\src\main\java\com\devsuperior\dscatalog\
 F:\Cursos\DevSuperior\dscatalog\backend\src\main\java\com\devsuperior\dscatalog\resources\exceptions\ResourceExcpetionHandler.java
 F:\Cursos\DevSuperior\dscatalog\backend\src\main\java\com\devsuperior\dscatalog\services\ProductService.java
 F:\Cursos\DevSuperior\dscatalog\backend\src\main\java\com\devsuperior\dscatalog\resources\CategoryResource.java
+F:\Cursos\DevSuperior\dscatalog\backend\src\main\java\com\devsuperior\dscatalog\resources\ClientResource.java
 F:\Cursos\DevSuperior\dscatalog\backend\src\main\java\com\devsuperior\dscatalog\services\exceptions\ObjetcNotFoundException.java
+F:\Cursos\DevSuperior\dscatalog\backend\src\main\java\com\devsuperior\dscatalog\services\ClientService.java
+F:\Cursos\DevSuperior\dscatalog\backend\src\main\java\com\devsuperior\dscatalog\dto\ClientDTO.java
+F:\Cursos\DevSuperior\dscatalog\backend\src\main\java\com\devsuperior\dscatalog\entities\Client.java
 F:\Cursos\DevSuperior\dscatalog\backend\src\main\java\com\devsuperior\dscatalog\resources\exceptions\ValidationError.java
 F:\Cursos\DevSuperior\dscatalog\backend\src\main\java\com\devsuperior\dscatalog\DscatalogApplication.java

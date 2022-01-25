@@ -28,6 +28,17 @@ INSERT INTO tb_product (name, price, date, description, img_url) VALUES ('PC Gam
 INSERT INTO tb_product (name, price, date, description, img_url) VALUES ('PC Gamer Boo', 2350.0, TIMESTAMP WITH TIME ZONE '2020-07-14T10:00:00Z', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'https://raw.githubusercontent.com/devsuperior/dscatalog-resources/master/backend/img/24-big.jpg');
 INSERT INTO tb_product (name, price, date, description, img_url) VALUES ('PC Gamer Foo', 4170.0, TIMESTAMP WITH TIME ZONE '2020-07-14T10:00:00Z', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'https://raw.githubusercontent.com/devsuperior/dscatalog-resources/master/backend/img/25-big.jpg');
 
+INSERT INTO tb_client (name, cpf, income, birth_date, children) VALUES ('Ana Clara', '01201201210',  2130.0, TIMESTAMP WITH TIME ZONE '1982-07-14', 2);
+INSERT INTO tb_client (name, cpf, income, birth_date, children) VALUES ('Betriz De Oliveira', '14587963258',  3658.0, TIMESTAMP WITH TIME ZONE '1970-01-28', 1);
+INSERT INTO tb_client (name, cpf, income, birth_date, children) VALUES ('Joana D`Arc', '66661666616',  2750.0, TIMESTAMP WITH TIME ZONE '1989-11-01', 3);
+INSERT INTO tb_client (name, cpf, income, birth_date, children) VALUES ('Mariana Queiroz', '11415636596',  1230.0, TIMESTAMP WITH TIME ZONE '1955-07-14', 4);
+INSERT INTO tb_client (name, cpf, income, birth_date, children) VALUES ('Carmem De Souza', '00100100101',  3355.0, TIMESTAMP WITH TIME ZONE '1969-09-08', 6);
+INSERT INTO tb_client (name, cpf, income, birth_date, children) VALUES ('Luana Silva', '32132132121',  7000.0, TIMESTAMP WITH TIME ZONE '1991-12-31', 1);
+INSERT INTO tb_client (name, cpf, income, birth_date, children) VALUES ('Joana D`Arc', '99911166619',  1950.0, TIMESTAMP WITH TIME ZONE '1987-02-07', 2);
+INSERT INTO tb_client (name, cpf, income, birth_date, children) VALUES ('Mariana Queiroz', '41541545633',  4250.0, TIMESTAMP WITH TIME ZONE '1990-05-25', 1);
+INSERT INTO tb_client (name, cpf, income, birth_date, children) VALUES ('Carmem De Souza', '145156915845',  4750.0, TIMESTAMP WITH TIME ZONE '1955-06-18', 2);
+INSERT INTO tb_client (name, cpf, income, birth_date, children) VALUES ('Luana Silva', '96385274158',  5254.0, TIMESTAMP WITH TIME ZONE '1977-01-11', 3);
+
 INSERT INTO tb_product_category (product_id, category_id) VALUES (1, 2);
 INSERT INTO tb_product_category (product_id, category_id) VALUES (2, 1);
 INSERT INTO tb_product_category (product_id, category_id) VALUES (2, 3);

@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping(value = "/categorias")
+@RequestMapping(value = "/categories")
 public class CategoryResource {
 
     @Autowired
@@ -54,7 +54,7 @@ public class CategoryResource {
     @GetMapping
     public ResponseEntity<Page<CategoryDTO>> findAll(
             @RequestParam(value = "page", defaultValue = "0") Integer page,
-            @RequestParam(value = "linesPerPage", defaultValue = "4") Integer linesPerPage,
+            @RequestParam(value = "linesPerPage", defaultValue = "12") Integer linesPerPage,
             @RequestParam(value = "direction", defaultValue = "ASC") String direction,
             @RequestParam(value = "orderBy", defaultValue = "name") String orderBy){
 
@@ -68,7 +68,7 @@ public class CategoryResource {
     @GetMapping(value = "/page")
     public ResponseEntity<Page<CategoryDTO>> findPage(
             @RequestParam(value = "page", defaultValue = "0") Integer page,
-            @RequestParam(value = "linesPerPage", defaultValue = "4") Integer linesPerPage,
+            @RequestParam(value = "linesPerPage", defaultValue = "12") Integer linesPerPage,
             @RequestParam(value = "orderBy", defaultValue = "nome") String orderBy,
             @RequestParam(value = "direction", defaultValue = "ASC") String direction){
         Page<Category> list = service.findPage(page, linesPerPage, orderBy, direction);

@@ -21,10 +21,12 @@ public class Category implements Serializable {
     @ManyToMany(mappedBy = "categories")
     private List<Product> products = new ArrayList<>();
 
-    @Column(name = "created_at")
+    //@Column(name = "created_at")
+    @Column(columnDefinition = "TIMESTAMP WITH TIME ZONE")
     private Instant createdAt;
 
-    @Column(name = "update_at")
+    //@Column(name = "update_at")
+    @Column(columnDefinition = "TIMESTAMP WITH TIME ZONE")
     private Instant updatedAt;
 
     public Category() {

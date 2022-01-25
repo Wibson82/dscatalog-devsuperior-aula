@@ -25,11 +25,6 @@ public class CategoryService {
     @Autowired
     CategoryRepository repository;
 
-    public Category buscar(Long id) {
-        Optional<Category> obj = repository.findById(id);
-        return obj.orElse(null);
-    }
-
     @Transactional(readOnly = true)
     public CategoryDTO findById(@PathVariable Long id) {
         Optional<Category> obj = repository.findById(id);
@@ -58,12 +53,7 @@ public class CategoryService {
         }
     }
 
-    private void updateData(Category newObj, Category obj) {
-        newObj.setName(obj.getName());
-    }
-
     public void delete(Long id) {
-        //find(id);
         try {
             repository.deleteById(id);
         } catch (EmptyResultDataAccessException e) {
@@ -75,20 +65,9 @@ public class CategoryService {
         }
     }
 
-    @Transactional(readOnly = true)
-    public List<CategoryDTO> findAll() {
-        List<Category> list = repository.findAll();
-        return list.stream().map(x -> new CategoryDTO(x))
-                .collect(Collectors.toList());
-    }
-
     public Page<Category> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
         PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
         return repository.findAll(pageRequest);
-    }
-
-    public Category fromDTO(CategoryDTO objDto) {
-        return new Category(objDto.getId(), objDto.getName());
     }
 
     public Page<CategoryDTO> findAllPaged(PageRequest pageRequest) {

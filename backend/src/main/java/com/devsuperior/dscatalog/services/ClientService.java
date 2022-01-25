@@ -1,13 +1,14 @@
 package com.devsuperior.dscatalog.services;
 
 import com.devsuperior.dscatalog.dto.CategoryDTO;
+import com.devsuperior.dscatalog.dto.ClientDTO;
 import com.devsuperior.dscatalog.dto.ProductDTO;
 import com.devsuperior.dscatalog.entities.Category;
+import com.devsuperior.dscatalog.entities.Client;
 import com.devsuperior.dscatalog.entities.Product;
-import com.devsuperior.dscatalog.services.repositories.CategoryRepository;
-import com.devsuperior.dscatalog.services.repositories.ProductRepository;
 import com.devsuperior.dscatalog.services.exceptions.DataBaseException;
 import com.devsuperior.dscatalog.services.exceptions.ResourceNotFoundException;
+import com.devsuperior.dscatalog.services.repositories.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -23,36 +24,34 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class ProductService {
+public class ClientService {
 
     @Autowired
-    ProductRepository repository;
-    @Autowired
-    CategoryRepository categoryRepository;
+    ClientRepository repository;
 
     @Transactional(readOnly = true)
-    public ProductDTO findById(@PathVariable Long id) {
-        Optional<Product> obj = repository.findById(id);
-        Product entity = obj.orElseThrow(() -> new ResourceNotFoundException(
-                "Entidade não encontrada! Id: " + id + ", Tipo: " + Product.class.getName()));
-        return new ProductDTO(entity, entity.getCategories());
+    public ClientDTO findById(@PathVariable Long id) {
+        Optional<Client> obj = repository.findById(id);
+        Client entity = obj.orElseThrow(() -> new ResourceNotFoundException(
+                "Entidade não encontrada! Id: " + id + ", Tipo: " + Client.class.getName()));
+        return new ClientDTO(entity);
     }
 
     @Transactional()
-    public ProductDTO insert(ProductDTO dto) {
-        Product entity = new Product();
+    public ClientDTO insert(ClientDTO dto) {
+        Client entity = new Client();
         copyDtoToEntity(dto, entity);
         entity = repository.save(entity);
-        return new ProductDTO(entity);
+        return new ClientDTO(entity);
     }
 
     @Transactional()
-    public ProductDTO update(Long id, ProductDTO dto) {
+    public ClientDTO update(Long id, ClientDTO dto) {
         try {
-            Product entity = repository.getOne(id);
+            Client entity = repository.getOne(id);
             copyDtoToEntity(dto, entity);
             entity = repository.save(entity);
-            return new ProductDTO(entity);
+            return new ClientDTO(entity);
         } catch (javax.persistence.EntityNotFoundException e) {
             throw new ResourceNotFoundException("Id not found " + id);
         }
@@ -63,34 +62,28 @@ public class ProductService {
             repository.deleteById(id);
         } catch (EmptyResultDataAccessException e) {
             throw new ResourceNotFoundException(
-                    "Categoria não encontrada para o id " + id);
+                    "Cliente não encontrado para o id " + id);
         } catch (DataIntegrityViolationException e) {
             throw new DataBaseException(
-                    "Não é possível excluir uma categoria que possui produtos");
+                    "Não é possível excluir um cliente que possui produtos");
         }
     }
 
-    public Page<Product> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
+    public Page<Client> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
         PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
         return repository.findAll(pageRequest);
     }
 
-    public Page<ProductDTO> findAllPaged(PageRequest pageRequest) {
-        Page<Product> list = repository.findAll(pageRequest);
-        return  list.map(x -> new ProductDTO(x));
+    public Page<ClientDTO> findAllPaged(PageRequest pageRequest) {
+        Page<Client> list = repository.findAll(pageRequest);
+        return list.map(x -> new ClientDTO(x));
     }
 
-    private void copyDtoToEntity(ProductDTO dto, Product entity) {
+    private void copyDtoToEntity(ClientDTO dto, Client entity) {
         entity.setName(dto.getName());
-        entity.setDescription(dto.getDescription());
-        entity.setDate(dto.getDate());
-        entity.setImgUrl(dto.getImgUrl());
-        entity.setPrice(dto.getPrice());
-
-        entity.getCategories().clear();
-        for(CategoryDTO catDto : dto.getCategories()){
-            Category category = categoryRepository.getOne(catDto.getId());
-            entity.getCategories().add(category);
-        }
+        entity.setCpf(dto.getCpf());
+        entity.setIncome(dto.getIncome());
+        entity.setBirthDate(dto.getBirthDate());
+        entity.setChildren(dto.getChildren());
     }
 }

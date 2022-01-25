@@ -1,6 +1,5 @@
 package com.devsuperior.dscatalog.entities;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -20,9 +19,9 @@ public class Product implements Serializable {
     @Column(columnDefinition = "TEXT")
     private String description;
     private Double price;
-    @Column(name = "img_url")
+    //@Column(name = "img_url")
     private String imgUrl;
-    @JsonFormat(pattern = "yyyy-MM-ddTHH:mm:ssZ", timezone = "UTC")
+    @Column(columnDefinition = "TIMESTAMP WITH TIME ZONE")
     private Instant date;
 
     @JsonIgnore
@@ -31,10 +30,6 @@ public class Product implements Serializable {
             joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id"))
     Set<Category> categories = new HashSet<>();
-
-   /* @JsonIgnore
-    @OneToMany(mappedBy = "id.product")
-    private Set<ItemPedido> itens = new HashSet<>();*/
 
     public Product() {
     }
