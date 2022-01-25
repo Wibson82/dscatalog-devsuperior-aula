@@ -13,7 +13,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
-import java.util.List;
 
 @RestController
 @RequestMapping(value = "/products")
@@ -30,7 +29,6 @@ public class ProductResource {
 
     @PostMapping
     public ResponseEntity<ProductDTO> insert(@Valid @RequestBody ProductDTO dto){
-        //Category obj = service.fromDTO(objDto);
         dto = service.insert(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(dto.getId()).toUri();
@@ -49,12 +47,6 @@ public class ProductResource {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
-
-   /* @GetMapping
-    public ResponseEntity<List<ProductDTO>> findAll(){
-        List<ProductDTO> list = service.findAll();
-        return ResponseEntity.ok().body(list);
-    }*/
 
     @GetMapping
     public ResponseEntity<Page<ProductDTO>> findAll(
